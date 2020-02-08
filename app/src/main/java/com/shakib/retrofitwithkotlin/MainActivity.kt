@@ -1,12 +1,15 @@
 package com.shakib.retrofitwithkotlin
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.shakib.retrofitwithkotlin.complexJson.jsonApiService
+import com.shakib.retrofitwithkotlin.complexJson.jsonServiceBuilder
 import com.shakib.retrofitwithkotlin.iota.IOTA
 import com.shakib.retrofitwithkotlin.iota.apiService
-import com.shakib.retrofitwithkotlin.iota.serviceBuilder
+import com.shakib.retrofitwithkotlin.iota.ServiceBuilder
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,11 +27,15 @@ class MainActivity : AppCompatActivity() {
             progress_bar.toggleVisibility()
             loadData()
         }
+
+        btn_user.setOnClickListener {
+            startActivity(Intent(this, Main2Activity::class.java))
+        }
     }
 
     private fun loadData() {
 
-        val iotaService = serviceBuilder.buildService(apiService::class.java)
+        val iotaService = ServiceBuilder.buildService(apiService::class.java)
 
         val requestCall = iotaService.getGroups()
 
@@ -55,4 +62,5 @@ class MainActivity : AppCompatActivity() {
 
         })
     }
+
 }
